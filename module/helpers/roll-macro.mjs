@@ -24,42 +24,112 @@ const fearColor = {
   system: "standard",
 };
 
-const inputHTML = `<input id="vsratii_input" type="number" value="0"/>`;
-
 const formHTML = (actor, ability) => {
-  console.log(ability, actor.system.abilities)
   return `
   <div class="dialog-input-group"> 
-    <label for="ability-select">Ability: </label>
-    <select id="ability-select" type="number" value="${ability}">
+    <label class="label" for="ability-select">Ability: </label>
+    <select class="input w-100" id="ability-select" type="number" value="${ability}">
       ${Object.keys(actor.system.abilities).map(
-        (key) =>
-          `<option ${key === ability ? "selected=true" : ""}value="${key}" data-mod="${actor.system.abilities[key].value}">${
-            actor.system.abilities[key].label
-          }</option>`
-      ).join('')};
+    (key) =>
+      `<option ${key === ability
+        ? "selected=true"
+        : ""}value="${key}" data-mod="${actor.system.abilities[key].value}">${
+        actor.system.abilities[key].label
+      }</option>`
+  ).join('')};
     </select>
   </div>
   <div class='dialog-input-group'>
-    <label for="mod_input">Additional Mod</label>
-    <input id="mod_input" type="number">
+    <label class="label" for="mod_input">Additional Mod</label>
+    <input id="mod_input" class="input w-100">
   </div>
 
   <div  class='dialog-input-group'>
-    ${actor.system.experiences
-      .map(
-        (item) =>
-          `<div class="dialog-input"> <input type="checkbox" data-mod=${item.mod}/> <label class="dialog-input-name">${item.name}</label> <label class="dialog-input-mod">${item.mod}</label></div>`
-      )
-      .join("")}
+    ${actor.system.experiences.map(
+    (item) =>
+      `<div class="dialog-input"> <input type="checkbox" data-mod=${item.mod}/> <label class="dialog-input-name">${item.name}</label> <label class="dialog-input-mod">${item.mod}</label></div>`
+  ).join("")}
   </div>
 `;
 };
 
-const template = (
-  roll,
-  { isCrit, isHope, isFear, hopeResult, fearResult, prefix }
-) => {
+/**
+ * Create HTML of dice details (row of any d12's rolled and their result)
+ * @param {int} hopeResult - result of currently selected hope die
+ * @param {int} hopeRemovedResult - result of discarded hope die (discarded from adv or disadv)
+ * @param {int} fearResult - result of fear die
+ * @param {boolean} isAdvantage - did we roll with advantage?
+ * @param {boolean} isDisadvantage - did we roll with disadvantage?
+ * @returns {String} - HTML strig of every Duality die with css in a row flexbox
+ */
+function getDiceDetailsHTML(hopeResult, hopeRemovedResult, fearResult, isAdvantage, isDisadvantage) {
+  /* Create HTML templates for each roll type [hope, fear, hope Advantage, hope disadvantage, critical] */
+  const hopeTemplate = (dieResult) => {
+    return(
+      `
+      <div class="duality-dice-msg-die-hope">
+        <label class="duality-dice-msg-resut-text-hope">${dieResult}</label>
+      </div>
+      `
+    )};
+
+  const fearTemplate = (dieResult) => {
+    return(
+      `
+      <div class="duality-dice-msg-die-fear">
+        <label class="duality-dice-msg-resut-text-fear">${dieResult}</label>
+      </div>
+      `)
+    };
+
+  const hopeAdvantageTemplate = (dieResult) => {
+    return(
+      `
+      <div class="duality-dice-msg-die-selected-hope-adv">
+        <label class="duality-dice-msg-resut-text-crit-success">${dieResult}</label>
+      </div>
+      `)
+  };
+
+
+  const hopeDisadvantageTemplate = (dieResult) => {
+    return(
+      `
+      <div class="duality-dice-msg-die-selected-hope-disadv">
+        <label class="duality-dice-msg-resut-text-crit-fail">${dieResult}</label>
+      </div>
+      `)
+  };
+
+  const critTemplate = (dieResult) => {
+    return(
+    `
+    <div class="duality-dice-msg-die-crit-success">
+      <label class="duality-dice-msg-resut-text-crit-success">${dieResult}</label>
+    </div>
+    `)
+  };
+
+  /* Create the html string */
+  let htmlString = `<div class="duality-dice-msg-container">`;
+  if(hopeResult == fearResult){
+    htmlString += critTemplate(hopeResult) + critTemplate(fearResult);
+  }else if(isAdvantage && hopeRemovedResult){
+    htmlString += hopeTemplate(hopeRemovedResult) + hopeAdvantageTemplate(hopeResult) + fearTemplate(fearResult);
+  }else if(isDisadvantage && hopeRemovedResult){
+    htmlString += hopeTemplate(hopeRemovedResult) + hopeDisadvantageTemplate(hopeResult) + fearTemplate(fearResult);
+  }else{
+    htmlString += hopeTemplate(hopeResult) + fearTemplate(fearResult);
+  }
+  htmlString += `</div>`;
+
+  return htmlString;
+}
+
+const template =
+  (roll,
+  { isCrit, isHope, isFear, hopeResult, fearResult, prefix, diceDetailsHTML}) => {
+
   const rolls = roll.terms.reduce((acc, item) => {
     if (!item.results) {
       return acc;
@@ -82,7 +152,9 @@ const template = (
       } d12">${rollResult.value}</li>`
   );
 
-  console.log(roll);
+
+  // Create Die List HTML
+  //let dieListHTML = createRollString(rolls, isAdvantage, isDisadvantage);
 
   return `
   
@@ -122,9 +194,8 @@ const template = (
                       <header class="part-header flexrow">
                           <span class="part-formula">${roll._formula}</span>
                       </header>
-                      <ol class="dice-rolls">
-                        ${list}
-                      </ol>
+                      ${diceDetailsHTML}
+                      <hr>
                   </div>
               </section>
           </div>
@@ -142,12 +213,20 @@ const buttons = ["Disadvantage", "Normal", "Advantage"].reduce(
   {}
 );
 
-// Button callback
+// Button "Advantage/Disadvantige/Modifier" callback
 function callback(html, event) {
-  console.log(event)
+  console.log(event);
+
+// Get any roll modifiers
+  // Get Any user input Mod
   const input = html.find("#mod_input");
+
+  //Get any additional mods (Effects/ other actor applied mods)
+
+  // Get Base Ability Mod
   const abilityMod = $("#ability-select option:selected").data('mod');
 
+  // Get experience Modifier
   // const selectValue = $(select.options[select.selectedIndex]).data('mod');
   const expMod = $(".dialog-input-group input:checked")
     .toArray()
@@ -157,6 +236,7 @@ function callback(html, event) {
         return acc + mod;
       }
     }, 0);
+
   const mod = parseInt(input.val()) || 0;
   const result = {
     hope: {
@@ -193,8 +273,6 @@ const doDHRoll = async (actor, ability, prefix = "") => {
       buttons,
       content: formHTML(actor, ability),
       close: (html, e) => {
-        console.log(e)
-
         return {cancelled: true}
       }
     });
@@ -206,12 +284,26 @@ const doDHRoll = async (actor, ability, prefix = "") => {
   const roll = await new Roll(`${hope.formula} + ${fear.formula} + @mod`, {
     mod: mod + expMod + abilityMod,
   }).evaluate();
+
+  // Get the specific results
   const hopeResult = roll.dice[0].results.find(
     (result) => result.active == true
   ).result;
+
+  // Get unused result from advantage / disadvantage roll
+  let hopeRemovedResult = null;
+  if(isAdvantage || isDisadvantage){
+    hopeRemovedResult = roll.dice[0].results.find(
+      (result) => result.active == false
+    ).result;
+  }
+
+
   const fearResult = roll.dice[1].results.find(
     (result) => result.active == true
   ).result;
+
+  let diceDetailsHTML = getDiceDetailsHTML(hopeResult, hopeRemovedResult, fearResult, isAdvantage, isDisadvantage);
 
   const isCrit = hopeResult == fearResult;
   const isHope = hopeResult > fearResult;
@@ -220,7 +312,6 @@ const doDHRoll = async (actor, ability, prefix = "") => {
   // Dice colors
   roll.dice[0].options.appearance = hopeColor;
   roll.dice[1].options.appearance = fearColor;
-  console.log(isCrit, isHope, isFear, hopeResult, fearResult);
   // roll.toMessage({
   //   speaker: ChatMessage.implementation.getSpeaker({actor: actor}),
   //   flavor: isCrit ? "Crit" : isHope ? "Hope Wins" : isFear ? "Fear Wins" : ""
@@ -240,6 +331,7 @@ const doDHRoll = async (actor, ability, prefix = "") => {
       isDisadvantage,
       hopeResult,
       fearResult,
+      diceDetailsHTML
     }),
     speaker: ChatMessage.implementation.getSpeaker({ actor: actor }),
   });
