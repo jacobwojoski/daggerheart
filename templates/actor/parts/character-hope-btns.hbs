@@ -1,0 +1,295 @@
+
+<style>
+	.main-container {
+		display: flex;
+		flex-direction: row;
+		background-color: beige;
+		padding: 1%;
+		width: 100%;
+		height: 30px;
+	}
+
+	.hope-btn-container {
+		background-image: linear-gradient(to bottom right,black, rgb(109, 1, 1), black);
+		display: flex;
+		flex-direction: row;
+		margin: 1%;
+		padding: 1%;
+		border-radius: 5em;
+		border: 3px solid black;
+		padding: 2px;
+		width: 100%;
+	}
+
+	.hope-btn-container::before {
+		border-radius: 5em;
+		border: 10px solid black;
+	}
+
+	.hope-btn {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		border: 1% solid yellow;
+		margin: 1%;
+		border-radius: 1%;
+		background-color: black;
+		transform: rotate(45deg);
+	}
+
+	.spacer {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 2;
+	}
+
+	.hope-plus-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+   	}
+
+	.hope-minus-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.hope-checkbox-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		height: 100%;
+		aspect-ratio: 1 / 1;
+	}
+
+	.hope-checkbox {
+		appearance: none;
+		-webkit-appearance: none;
+		display: flex;
+		align-content: center;
+		justify-content: center;
+		font-size: 2rem;
+		padding: 1%;
+		border: 3px solid yellow;
+		border-radius: 0.3rem;
+		transform: rotate(45deg);
+		background-color: black;
+		height: 100%;
+		aspect-ratio: 1 / 1;
+	}
+
+	.hope-checkbox::before {
+  		content: "";
+  		transform: scale(0);
+		background-color: black;
+		aspect-ratio: 1 / 1;
+	}
+
+	.hope-checkbox:hover {
+		color: black;
+		background-color: black;
+	}
+
+	.hope-checkbox:checked::before {
+		transform: scale(1);
+		background-color: yellow;
+		border-radius: 0.4rem;
+	}
+
+	.hope-checkbox:checked {
+		border: 3px solid yellow;
+	}
+
+	.hope-checkbox:disabled {
+		border: 3px solid grey;
+		background-color: rgb(88, 88, 88);
+		opacity: .7;
+	}
+
+	.hope-end-btns-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		
+		height: 100%;
+		aspect-ratio: 1 / 1;
+	}
+
+	.hope-end-btns {
+		appearance: button;
+		background-color: rgb(117, 20, 20);
+		background-image: linear-gradient(180deg, rgba(255, 255, 255, .15), rgba(255, 255, 255, 0));
+		border: 1px solid rgb(71, 31, 31);
+		box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0 inset,rgba(46, 54, 80, 0.075) 0 1px 1px;
+		box-sizing: border-box;
+		color: #FFFFFF;
+		cursor: pointer;
+		font-family: Inter,sans-serif;
+		font-size: 1rem;
+		font-weight: bolder;
+		margin: 0;
+
+		display: table-cell;
+		text-align: center;
+		vertical-align: middle;
+		
+		transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		user-select: none;
+		-webkit-user-select: none;
+		touch-action: manipulation;
+		transform: rotate(45deg);
+		
+		border: 1px solid yellow;
+
+		width: 100%;
+		aspect-ratio: 1 / 1;
+	}
+
+	.hope-plus {
+		border-bottom-left-radius: 1em;
+		border-top-left-radius: 5em;
+		border-top-right-radius: 5em;
+		border-bottom-right-radius: 5em;
+	}
+
+	.hope-minus {
+		border-bottom-left-radius: 5em;
+		border-top-left-radius: 5em;
+		border-top-right-radius: 1em;
+		border-bottom-right-radius: 5em;
+	}
+
+	.hope-end-btns:focus:not(:focus-visible),
+	.hope-end-btns:focus {
+		outline: 0;
+		opacity: 1;
+	}
+
+	.hope-end-btns:hover {
+		background-color: rgb(222, 40, 40);
+		border-color: rgb(71, 31, 31);
+		border: 1px solid yellow;
+	}
+
+	.hope-end-btns:active {
+		background-color: rgb(117, 20, 20);
+		background-image: none;
+		border-color: rgb((117, 20, 20));
+		box-shadow: rgb(71, 31, 31) 0 3px 5px inset;
+	}
+
+	.hope-end-btns:disabled {
+		background-image: none;
+		box-shadow: none;
+		opacity: .65;
+		pointer-events: none;
+	}
+
+	.hope-end-btns-txt {
+		display: inline-block;
+		transform: rotate(-45deg);
+	}
+
+	.hope-line {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		background: linear-gradient(180deg, 
+			rgba(0,0,0,0) calc(50% - 5%), 
+			yellow calc(50% - 5%), 
+			yellow calc(50% + 5%), 
+			rgba(0,0,0,0) calc(50% + 5%)
+    	);
+	}
+
+	.edit-btn-container {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		min-width: 30px;
+		padding-top: 1%;
+		padding-bottom: 1%;
+	}
+
+	.edit-btn {
+		width: 100%;
+		height: 90%;
+		background: linear-gradient(90deg, rgb(95, 95, 250), rgb(49, 49, 244), rgb(95, 95, 250));
+		border: 2px solid black;
+		border-radius: .5em;
+
+		display: inline-block;
+		text-align: center;
+		padding-left: 0;
+		padding-right: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+		font-weight: bolder;
+		color: white;
+		min-width: 40px;
+
+		margin-top: 5%;
+		margin-bottom: 5%;
+	}
+
+	.edit-btn:hover {
+		background: linear-gradient(90deg, rgb(66, 66, 254), rgb(18, 18, 255), rgb(66, 66, 254));
+	}
+
+	.edit-btn:active {
+		border: 2px solid purple;
+		background: linear-gradient(90deg, rgb(95, 95, 250), rgb(49, 49, 244), rgb(95, 95, 250));
+	}
+
+</style>
+
+<div class="main-container">
+    <div class="hope-btn-container">
+        <span class="hope-line">
+            <div class="hope-end-btns-container">
+                <button class="hope-end-btns hope-minus" data-type="hope" data-id="minus"><span class="hope-end-btns-txt">-</span></button>
+            </div>
+
+            <div class="spacer"></div>
+            <div class="hope-checkbox-container">
+                <input type="checkbox" class="hope-checkbox"/>
+            </div>
+            <div class="spacer"></div>
+
+            <div class="hope-checkbox-container">
+                <input type="checkbox" class="hope-checkbox"/>
+            </div>
+            <div class="spacer"></div>
+
+            <div class="hope-checkbox-container">
+                <input type="checkbox" class="hope-checkbox"/>
+            </div>
+            <div class="spacer"></div>
+
+            <div class="hope-checkbox-container">
+                <input type="checkbox" class="hope-checkbox"/>
+            </div>
+            <div class="spacer"></div>
+
+            <div class="hope-checkbox-container">
+                <input type="checkbox" class="hope-checkbox"/>
+            </div>
+            <div class="spacer"></div>
+
+            <div class="hope-checkbox-container">
+                <input type="checkbox" class="hope-checkbox" disabled/>
+            </div>
+            <div class="spacer"></div>
+
+            <div class="hope-end-btns-container">
+                <button class="hope-end-btns hope-plus" data-type="hope" data-id="plus"><span class="hope-end-btns-txt">+</span></button>
+            </div>
+        </span>
+    </div> <!-- END HOPE BUTTONS-->
+    <div class="edit-btn-container"> <!-- EDIT BUTTON -->
+        <button class="edit-btn">EDIT</button>
+    </div> 
+</div>

@@ -103,10 +103,14 @@
           </div>
           <div class="resource health-stress flex-group-center">
             <label for="system.health.value" class="side-label">Health</label>
+
+            <!-- 
             <input type="text" class="side-label" name="system.health.value" value="{{system.health.value}}"
               data-dtype="Number" />
             <input type="text" class="side-label" name="system.health.max" value="{{system.health.max}}"
               data-dtype="Number" />
+            -->
+            {{> "systems/daggerheart/templates/actor/parts/character-hp-btns.hbs"}}
           </div>
 
           <div class="resource health-stress flex-group-center">
@@ -120,8 +124,11 @@
           <!-- System Setting if the player wants buttons vs number input boxes -->
           <div class="resource health-stress flex-group-center">
             <label for="system.hope" class="side-label" data-label="{{system.hope}}">Hope: </label>
+            <!-- 
             <input type="number" class="side-label" name="system.hope" class="take-two" value="{{system.hope}}"
               data-dtype="Number" />
+              -->
+            {{> "systems/daggerheart/templates/actor/parts/character-hope-btns.hbs"}}
           </div>
 
 

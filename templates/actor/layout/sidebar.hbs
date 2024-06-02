@@ -11,24 +11,33 @@
 <div class="sidebar-hp flex items-center justify-between w-100">
   <label class="label">HP</label>
   <div class="flex items-center gap-10">
+     <!-- ADD SYSTEM SETTING OPTION HERE 
     <input name="system.health.value" value="{{system.health.value}}" class="white input number" />
     <input name="system.health.max" value="{{system.health.max}}" class="white input number" />
+    -->
+    {{> "systems/daggerheart/templates/actor/parts/character-hp-btns.hbs"}}
   </div>
 </div>
 
 <div class="sidebar-stress flex items-center justify-between w-100">
   <label class="label">STRESS</label>
   <div class="flex items-center gap-10">
+    <!-- ADD SYSTEM SETTING OPTION HERE 
     <input name="system.stress.value" value="{{system.stress.value}}" class="white input number" />
     <input name="system.stress.max" value="{{system.stress.max}}" class="white input number" />
+    -->
+    {{> "systems/daggerheart/templates/actor/parts/character-hp-btns.hbs"}}
   </div>
 </div>
 
 <div class="sidebar-hope flex items-center justify-between w-100">
   <label class="label">HOPE</label>
   <div class="flex items-center gap-10">
+    <!-- ADD SYSTEM SETTING OPTION HERE 
     <input name="system.hope.value" value="{{system.hope.value}}" class="white input number" />
     <input name="system.hope.max" value="{{system.hope.max}}" class="white input number" />
+    -->
+    {{> "systems/daggerheart/templates/actor/parts/character-hope-btns.hbs"}}
   </div>
 </div>
 

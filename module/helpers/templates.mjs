@@ -33,5 +33,8 @@ export const preloadHandlebarsTemplates = async function () {
     'systems/daggerheart/templates/actor/parts/character-domain-card.hbs',
     'systems/daggerheart/templates/actor/parts/character-equipable.hbs',
     'systems/daggerheart/templates/actor/parts/character-item.hbs',
+    'systems/daggerheart/templates/actor/parts/character-hp-btns.hbs',
+    'systems/daggerheart/templates/actor/parts/character-hope-btns.hbs',
   ]);
+  
 };
