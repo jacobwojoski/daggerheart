@@ -1,0 +1,52 @@
+{
+  "id": "daggerheart",
+  "title": "Daggerheart",
+  "description": "Tring to make a basic system for Daggerheart using Javascript and SASS",
+  "authors": [
+    {
+      "name": "Jacobwojo",
+      "discord": "jacobwojo#6005"
+    }
+  ],
+  "url": "https://github.com/jacobwojoski/daggerheart-for-foundryvtt",
+  "license": "LICENSE.txt",
+  "readme": "README.md",
+  "bugs": "https://github.com/jacobwojoski/daggerheart-for-foundryvtt/issues",
+  "changelog": "CHANGELOG.md",
+  "media": [
+    {
+      "type": "setup",
+      "url": "systems/daggerheart-for-foundryvtt/assets/webp/daggerheart_logo.webp",
+      "thumbnail": "systems/daggerheart-for-foundryvtt/assets/webp/daggerheart_logo.webp"
+    }
+  ],
+  "version": "0.0.1",
+  "compatibility": {
+    "minimum": 12,
+    "verified": "12"
+  },
+  "esmodules": ["module/daggerheart.mjs"],
+  "styles": ["css/daggerheart.css"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "packs": [],
+  "packFolders": [],
+
+  "socket": false,
+
+  "manifest": "Replace this with a link to the /latest release system.json so people can receive updates after they've installed the system",
+  "download": "This must link to a .zip file of the current version",
+  "background": "systems/daggerheart-for-foundryvtt/assets/webp/daggerheart_logo.webp",
+  "grid": {
+    "distance": 1,
+    "units": "sqare"
+  },
+
+  "primaryTokenAttribute": "stats.wounds",
+  "secondaryTokenAttribute": "hope"
+}

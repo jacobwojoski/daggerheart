@@ -1,0 +1,85 @@
+{{! This template is for treasure Items. A generic Item sheet should cover this roll too }}
+{{! The main addition is this sheet also has a value section allowing the user to see what its worth }}
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <img
+      class='profile-img'
+      src='{{item.img}}'
+      data-edit='img'
+      title='{{item.name}}'
+    />
+    <div class='header-fields'>
+      <h1 class='charname'><input
+          name='name'
+          type='text'
+          value='{{item.name}}'
+          placeholder='Name'
+        /></h1>
+    </div>
+  </header>
+
+  {{! Sheet Tab Navigation }}
+  <nav class='sheet-tabs tabs' data-group='primary'>
+    <a class='item' data-tab='description'>Description</a>
+    <a class='item' data-tab='attributes'>Attributes</a>
+  </nav>
+
+  {{! Sheet Body }}
+  <section class='sheet-body'>
+
+    {{! Description Tab }}
+    <div class='tab daggerheart treasure-tab-container' data-group='primary' data-tab='description'>
+      {{! Editors must receive enriched text data from getData to properly handle rolls }}
+      <div class="daggerheart treasure-tab-description-container">
+        {{editor
+        enrichedDescription
+        target='system.description'
+        engine='prosemirror'
+        button=true
+        editable=editable
+        }}
+      </div>
+
+      {{! Section to display currency to represent what the treasure is worth }}
+      <div class="daggerheart treasure-tab-currency-container">
+
+        {{! TODO: ADD IFDEF FOR COINS VALUE}}
+        <div class="daggerheart treasure-tab-currency-input-container">
+            <input type="number" data-group="" data-value="">
+            <label>COINS</label>
+        </div>
+        {{! TODO: END IFDEF}}
+
+        <div class="daggerheart treasure-tab-currency-input-container">
+            <input type="number" data-group="" data-value="">
+            <label>Handfuls</label>
+        </div>
+        <div class="daggerheart treasure-tab-currency-input-container">
+            <input type="number" data-group="" data-value="">
+            <label>Bags</label>
+        </div>
+        <div class="daggerheart treasure-tab-currency-input-container">
+            <input type="number" data-group="" data-value="">
+            <label>Chests</label>
+        </div>
+      </div>
+
+     {{! Display total worth and allow player to edit total value auto adjusting the other fields }}
+      <div class="daggerheart treasure-tab-currency-container">
+        <div class="daggerheart treasure-tab-currency-input-container">
+            <input type="number" data-group="" data-value="">
+            <label>Total Handfuls</label>
+        </div>
+        <div class="daggerheart treasure-tab-currency-input-container">
+            <input type="number" data-group="" data-value="">
+            <label>Total Coins</label>
+        </div>
+      </div>
+    </div>
+
+    {{! Attributes Tab }}
+    <div class='tab attributes' data-group='primary' data-tab='attributes'>
+      {{! As you add new fields, add them in here! }}
+    </div>
+  </section>
+</form>
