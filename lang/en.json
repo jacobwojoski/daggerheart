@@ -1,5 +1,13 @@
 {
   "DAGGERHEART": {
+    "Traits":{
+      "Agility":"Agility",
+      "Strength":"Strength",
+      "Precision":"Precision", 
+      "Intuition":"Intuition",
+      "Presence":"Presence",
+      "Knowledge":"Knowledge"
+    },
     "Ability": {
       "Str": { "long": "Strength", "abbr": "str" },
       "Con": { "long": "Constitution", "abbr": "con" },
@@ -12,12 +20,37 @@
       "Actor": "Daggerheart Actor Sheet",
       "Item": "Daggerheart Item Sheet"
     },
+
     "Item": {
-      "Spell": {
-        "SpellLVL": "Level {level} Spells",
-        "AddLVL": "Add LVL {level}"
+      "Currency": {
+        "Inputs":{
+          "Coins": "Edit Coins Value",
+          "Handfuls": "Edit Handfuls Value",
+          "Bags": "Edit Bags Value",
+          "Chests": "Edit Chests Value",
+          "Total-Coins": "Edit Total Coins Value",
+          "Total-Handfuls": "Edit Total Handfuls Value",
+
+          "Tooltips": {
+            "Coins": "Edit the total number of <b>Coins</b> of gold an <b>Item</b> is worth.",
+            "Handfuls": "Edit the total number of <b>Handfuls</b> of gold an <b>Item</b> is worth.",
+            "Bags": "Edit the total number of <b>Bags</b> of gold an <b>Item</b> is worth.",
+            "Chests": "Edit the total number of <b>Chests</b> of gold an <b>Item</b> is worth.",
+            "Total-Coins": "Edit the total number of <b>Coins</b> of gold an <b>Item</b> is worth. Changing this will adjust the <b>Coins, Handfuls, Bags, and Chests</b> Field",
+            "Total-Handfuls": "Edit the total number of <b>Hanfuls</b> of gold an <b>Item</b> is worth. Changing this will adjust the <b>Coins, Handfuls, Bags, and Chests</b> Field"
+          }
+        },
+        "Labels": {
+          "Coins": "Coins",
+          "Handfuls": "Handfuls",
+          "Bags": "Bags",
+          "Chests": "Chests",
+          "Total-Coins": "Total Coins",
+          "Total-Handfuls": "Total Handfuls"
+        }
       }
     },
+
     "Effect": {
       "Source": "Source",
       "Toggle": "Toggle Effect",

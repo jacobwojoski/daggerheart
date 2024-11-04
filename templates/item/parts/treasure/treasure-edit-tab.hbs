@@ -1,0 +1,44 @@
+{{! 
+    Edit tab for the consumable item. Allows user to edit the following:
+    - Value of a single consumable
+}}
+
+<div class='tab daggerheart treasure-tab-container' data-group='primary' data-tab='description'> {{! Main container flex col }}
+
+    <div> {{! Container for number inputs }}
+        <div>
+            <input type="number" data-group="currency" data-action="coins" data-value="{{this.system.currency.coins}}">
+            <label>Coins</label>
+        </div>
+
+        <div>
+            <input type="number" data-group="currency" data-action="hadndfuls" data-value="{{this.system.currency.bags}}">
+            <label>Bags</label>
+        </div>
+
+        <div>
+            <input type="number" data-group="currency" data-action="bags" data-value="{{this.system.currency.hadnfuls}}">
+            <label>Handfuls</label>
+        </div>
+
+        <div>
+            <input type="number" data-group="currency" data-action="chests" data-value="{{this.system.currency.chests}}">
+            <label>Chests</label>
+        </div>
+    </div> {{! end Number input container }}
+
+    <hr> {{! Break between specific input fields and totals }}
+
+    <div> {{! Container for total edit inputs }}
+        <div>
+            <input type="number" data-group="currency" data-action="total-coins" data-value="{{this.system.currency.total.coins}}">
+            <label>Total Coins</label>
+        </div>
+
+        <div>
+            <input type="number" data-group="currency" data-action="total-handfuls" data-value="{{this.system.currency.total.handfuls}}">
+            <label>Total Handfuls</label>
+        </div>
+    </div> {{! End total edit inputs }}
+    
+</div>

@@ -1,0 +1,25 @@
+{{! 
+    Description tab for the consumable item. Holds the following info:
+    - List decscription in an editable textbox,
+    - Value of a single consumable
+    - "Duality" & "Dmg" Use buttons
+    - Number Uses Per consumable
+}}
+
+<div> {{! Main container for description, Col Flex container }}
+    
+    <div class="daggerheart treasure-tab-description-container"> {{! Value Edit area }}
+        {{! Editors must receive enriched text data from getData to properly handle rolls }}
+        {{editor
+            enrichedDescription
+            target='system.description'
+            engine='prosemirror'
+            button=true
+            editable=editable
+        }}
+    </div>
+
+    <div> {{! Button Container }}
+
+    </div>
+</div>
